@@ -1,0 +1,18 @@
+<div>
+  <mat-form-field appearance="outline" style="width: 100%; padding: 0">
+    <mat-label>Semester</mat-label>
+    <mat-select
+      (ngModelChange)="semesterSelected($event)"
+      [(ngModel)]="selectedOption"
+      placeholder="Choose semester"
+      required
+    >
+      <mat-option value="Choose semester" selected="selected" disabled>
+        Choose semester
+      </mat-option>
+      <mat-option *ngFor="let sem of semesters$ | async" [value]="sem.id">
+        {{ sem.fieldOfStudy }}, sem no. {{ sem.semester }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

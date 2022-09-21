@@ -1,0 +1,22 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.field:last-of-type {
+  margin-bottom: 0;
+}
+
+.container {
+  padding-top: 100px;
+}
+
+.title {
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
+.flex-container-horizontal {
+  display: flex;
+  gap: 25%;
+}

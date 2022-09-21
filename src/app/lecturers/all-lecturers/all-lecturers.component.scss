@@ -1,0 +1,26 @@
+.container {
+  padding-top: 100px;
+}
+
+:host ::ng-deep .active--page--link {
+  font-weight: bold;
+  color: black;
+  text-decoration: none;
+}
+.grid--cards {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  justify-content: center;
+}
+.pages {
+  padding: 50px 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+:host ::ng-deep .pages a {
+  font-size: 120%;
+}

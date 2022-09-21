@@ -1,0 +1,32 @@
+<div class="card" style="width: 20rem">
+  <div class="card-body">
+    <div class="field">
+      <div class="title">Username</div>
+      <div class="value" *ngIf="user.username">
+        {{ user.username }}
+      </div>
+      <div class="value" *ngIf="!user.username">Not provided</div>
+    </div>
+    <div class="field">
+      <div class="title">Email</div>
+      <div class="value" *ngIf="user.email">
+        {{ user.email }}
+      </div>
+      <div class="value" *ngIf="!user.email">Not provided</div>
+    </div>
+    <div class="field">
+      <div class="title">First name</div>
+      <div class="value" *ngIf="user.firstName">
+        {{ user.firstName }}
+      </div>
+      <div class="value" *ngIf="!user.firstName">Not provided</div>
+    </div>
+    <div class="field">
+      <div class="title">Role</div>
+      <div class="value" *ngIf="user.role">
+        {{ user.role }}
+      </div>
+      <div class="value" *ngIf="!user.role">Not provided</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div *ngIf="(loading$ | async) && topic" style="padding-top: 120px">
+  <div class="card" style="max-width: 550px">
+    <h5 class="card-header">{{ topic.topicName }}</h5>
+    <div class="card-body">
+      <h5 class="card-title">Description</h5>
+      <p class="card-text">
+        {{ topic.description }}
+      </p>
+      <h5 class="card-title">Lecturer</h5>
+      <p class="card-text" *ngIf="topic.lecturer">
+        {{ lecturer.firstName }} {{ lecturer.lastName }}
+      </p>
+      <h5 class="card-title">Groups assigned to topic</h5>
+      <p class="card-text">
+        <ng-template ngFor let-group [ngForOf]="topic.groupIds"
+          >{{ group }},
+        </ng-template>
+      </p>
+      <hr *ngIf="!(hasStudentRole$ | async)" />
+      <div
+        *ngIf="!(hasStudentRole$ | async)"
+        style="display: flex; gap: 0.6rem"
+      >
+        <a [routerLink]="editRoute" class="btn btn-primary">Edit</a>
+        <a (click)="deleteTopic()" class="btn btn-primary">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>

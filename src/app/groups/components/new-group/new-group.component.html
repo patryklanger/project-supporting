@@ -1,0 +1,40 @@
+<div class="container">
+  <h1 class="mb-3">Add group</h1>
+
+  <form class="col-8" (ngSubmit)="onFormSubmit()">
+    <app-semester-select
+      (onSemesterSelected)="onSemesterSelected($event)"
+    ></app-semester-select>
+    <mat-form-field appearance="outline" style="width: 100%" required>
+      <mat-label>Maximal group size</mat-label>
+      <input
+        matInput
+        type="number"
+        min="1"
+        max="15"
+        [formControl]="maxSizeCtrl"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 100%">
+      <mat-label>Topic</mat-label>
+      <mat-select [formControl]="topicCtrl" required>
+        <mat-option
+          ><ngx-mat-select-search
+            placeholderLabel="Start typing topic name"
+            noEntriesFoundLabel="No matching topics found"
+            [formControl]="topicFilterCtrl"
+          ></ngx-mat-select-search
+        ></mat-option>
+        <mat-option *ngFor="let topic of topics$ | async" [value]="topic.id">{{
+          topic.topicName
+        }}</mat-option>
+        <mat-option *ngIf="topicSelected" [value]="selectedTopicId">{{
+          selectedTopicName
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button type="submit">Submit</button>
+  </form>
+</div>

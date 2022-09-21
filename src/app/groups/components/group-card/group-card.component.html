@@ -1,0 +1,32 @@
+<div class="card" style="width: 20rem">
+  <div class="card-body">
+    <ul>
+      <li>
+        <p class="card-text">
+          <b>Topic: </b>
+          <a [routerLink]="['/topic', group.topic.id]">{{
+            group.topic.topicName
+          }}</a>
+        </p>
+      </li>
+      <li>
+        <p class="card-text">
+          <b>Capacity:</b> {{ group.students.length }}/{{ group.maxSize }}
+        </p>
+      </li>
+    </ul>
+    <div class="button--container">
+      <button (click)="showAddStudentsDialog()" matTooltip="Details">
+        <mat-icon matTooltip="Add students" class="material-icons-outlined icon"
+          >info</mat-icon
+        >
+      </button>
+      <button (click)="showChangeStateDialog()" matTooltip="Edit">
+        <mat-icon class="material-icons-outlined icon">edit</mat-icon>
+      </button>
+      <button (click)="singMeUpToGroup()" matTooltip="Delete">
+        <mat-icon class="material-icons-outlined icon">delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

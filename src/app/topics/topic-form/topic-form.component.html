@@ -1,0 +1,44 @@
+<form [formGroup]="topicForm" (ngSubmit)="onFormSubmit()">
+  <p>
+    <mat-form-field appearance="outline" style="width: 100%">
+      <mat-label>Topic name</mat-label>
+      <input
+        matInput
+        type="name"
+        id="name"
+        name="name"
+        formControlName="name"
+        placeholder=""
+      />
+      <mat-error
+        *ngIf="name?.errors?.['minlength'] && name?.invalid && (name?.dirty || name?.touched)"
+      >
+        Name must be at least 4 characters long.
+      </mat-error>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="outline" style="width: 100%">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        id="description"
+        name="description"
+        formControlName="description"
+        placeholder=""
+      ></textarea>
+      <mat-error
+        *ngIf="description?.errors?.['maxlength'] && description?.invalid && (description?.dirty || description?.touched)"
+      >
+        Description cannot be longer tham 3000 letters.
+      </mat-error>
+    </mat-form-field>
+  </p>
+  <button
+    mat-raised-button
+    type="submit"
+    [disabled]="!topicForm.valid || !topicForm.touched"
+  >
+    Submit
+  </button>
+</form>

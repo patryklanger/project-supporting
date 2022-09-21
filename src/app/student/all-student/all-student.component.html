@@ -1,0 +1,23 @@
+<div class="container">
+  <h1 class="mb-3">All students</h1>
+
+  <div>
+    <mat-spinner
+      style="margin: 150px auto"
+      *ngIf="!(dataSourceObtained$ | async)"
+    ></mat-spinner>
+    <div class="grid--cards" *ngIf="dataSourceObtained$ | async">
+      <ng-template ngFor let-student [ngForOf]="dataSource$ | async">
+        <app-student-card [student]="student"></app-student-card
+      ></ng-template>
+    </div>
+  </div>
+  <div
+    *ngIf="(dataSourceObtained$ | async) && (dataSource$ | async).length == 0"
+  >
+    No student added!
+  </div>
+  <div #pagesDiv (click)="pageLinkClicked($event)" class="pages">
+    <div #forward></div>
+  </div>
+</div>

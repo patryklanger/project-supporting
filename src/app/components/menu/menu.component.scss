@@ -1,0 +1,83 @@
+.sidebar--menu {
+  width: 280px;
+}
+.text-120-percent {
+  font-size: 120%;
+}
+.menu--hr {
+  margin: 5px 0;
+}
+.mobile--header {
+  display: none;
+}
+.menu-button {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background-color: transparent;
+  border: 0;
+}
+.line {
+  width: 30px;
+  height: 3px;
+  background-color: black;
+  transition: transform 0.2s ease-in-out;
+}
+
+.menu-button {
+  transform: translateY(20px);
+}
+
+.mobile--header {
+  z-index: 20;
+  height: fit-content;
+}
+
+.menu-button.active .line:first-of-type {
+  transform: rotate(45deg);
+  position: absolute;
+}
+
+.menu-button.active .line:nth-of-type(2) {
+  display: none;
+}
+
+.menu-button.active .line:last-of-type {
+  transform: rotate(-45deg);
+  position: absolute;
+}
+.menu-main-container {
+  z-index: 10;
+}
+
+@media only screen and (max-width: 600px) {
+  .mobile--header {
+    display: unset;
+  }
+  .menu-main-container {
+    transform: translateX(-100%);
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .menu-main-container.active {
+    transform: translateX(0);
+  }
+}
+::ng-deep
+  .menu-main-container
+  .mat-form-field-appearance-outline
+  .mat-form-field-outline {
+  color: white;
+}
+
+::ng-deep .menu-main-container .mat-focused .mat-form-field-label,
+::ng-deep .menu-main-container .mat-select-arrow .mat-focused,
+::ng-deep .menu-main-container .mat-focused .mat-form-field-outline {
+  color: grey !important;
+}
+::ng-deep .menu-main-container .mat-select-placeholder,
+::ng-deep .menu-main-container .mat-form-field-label,
+::ng-deep .menu-main-container .mat-select-value,
+::ng-deep .menu-main-container .mat-select-arrow {
+  color: white;
+}

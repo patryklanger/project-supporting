@@ -1,0 +1,7 @@
+<div class="container">
+  <div class="grid--cards">
+    <ng-template ngFor let-user [ngForOf]="users$ | async">
+      <app-user-card [user]="user"></app-user-card>
+    </ng-template>
+  </div>
+</div>

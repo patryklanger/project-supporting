@@ -1,0 +1,32 @@
+<div class="container">
+  <h1 style="margin-bottom: 50px">Your profile</h1>
+  <div class="flex-container-horizontal">
+    <div class="field">
+      <div class="title">Firstname</div>
+      <div class="value" *ngIf="claims.given_name">
+        {{ claims.given_name }}
+      </div>
+      <div class="value" *ngIf="!claims.given_name">Not provided</div>
+    </div>
+    <div class="field">
+      <div class="title">Surname</div>
+      <div class="value" *ngIf="claims.family_name">
+        {{ claims.family_name }}
+      </div>
+      <div class="value" *ngIf="!claims.family_name">Not provided</div>
+    </div>
+  </div>
+  <div class="field">
+    <div class="title">Username</div>
+    <div class="value">{{ claims.preferred_username }}</div>
+  </div>
+  <div class="field">
+    <div class="title">Email</div>
+    <div class="value" *ngIf="claims.email">{{ claims.email }}</div>
+    <div class="value" *ngIf="!claims.email">Not provided</div>
+  </div>
+  <div class="field">
+    <div class="title">Roles</div>
+    <div class="value">{{ roles }}</div>
+  </div>
+</div>

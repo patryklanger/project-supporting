@@ -1,0 +1,11 @@
+<div class="container">
+  <h1 class="mb-3">Edit</h1>
+  <div class="row">
+    <div class="col-8">
+      <app-edit-student-form
+        [studentToEdit$]="studentToEdit$"
+        (editStudent)="onFormSubmit($event)"
+      ></app-edit-student-form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="card" style="width: 20rem">
+  <div class="card-body">
+    <h5 class="card-title">{{ admin.firstName }} {{ admin.lastName }}</h5>
+    <p class="card-text">
+      Username: {{ admin.username }} <br />
+      Email: {{ admin.email }}
+    </p>
+    <div class="button--container">
+      <button (click)="editAdmin()" matTooltip="Edit">
+        <mat-icon class="material-icons-outlined icon">edit</mat-icon>
+      </button>
+      <button (click)="deleteAdmin()" matTooltip="Delete">
+        <mat-icon class="material-icons-outlined icon">delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

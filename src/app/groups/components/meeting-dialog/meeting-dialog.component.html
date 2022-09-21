@@ -1,0 +1,10 @@
+<h3>Presence list</h3>
+
+<ul>
+  <li *ngFor="let presence of presenceList">
+    <mat-checkbox [(ngModel)]="presence.wasPresent">
+      {{ presence.studentName }}
+    </mat-checkbox>
+  </li>
+</ul>
+<button mat-raised-button (click)="onClickDone()">Done</button>

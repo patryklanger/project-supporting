@@ -1,0 +1,177 @@
+<div *ngIf="!(group$ | async)">
+  <p>{{ error }}</p>
+</div>
+<div *ngIf="group$ | async" style="padding-top: 120px">
+  <div class="card" style="max-width: 550px">
+    <h5 class="card-header">{{ (group$ | async).id }}</h5>
+    <div class="card-body">
+      <h5 class="card-title">Capacity</h5>
+      <p class="card-text">
+        {{ (group$ | async).students.length }}/{{ (group$ | async).maxSize }}
+      </p>
+      <h5 class="card-title">Group state</h5>
+      <p class="card-text">
+        {{ (group$ | async).groupState }}
+      </p>
+      <h5 class="card-title">Topic</h5>
+      <p class="card-text">
+        {{ (group$ | async).topic.topicName }} by
+        {{ (group$ | async).topic.lecturer.lastName }}
+      </p>
+      <h5 class="card-title">Student assigned to group</h5>
+      <div class="card-text">
+        <p *ngIf="(group$ | async).students.length == 0">No students added!</p>
+        <table
+          *ngIf="(group$ | async).students.length > 0"
+          style="width: 100%; border-collapse: separate; border-spacing: 0 1em"
+        >
+          <tr>
+            <th>Album no.</th>
+            <th>Name</th>
+            <th>Mark</th>
+          </tr>
+          <tr *ngFor="let student of (group$ | async).students">
+            <td>{{ student.id }}</td>
+            <td>{{ student.firstName }} {{ student.lastName }}</td>
+            <td style="width: fit-content">
+              {{ student.mark
+              }}<button
+                *ngIf="(hasLecturerRole$ | async) || (hasAdminRole$ | async)"
+                mat-raised-button
+                style="font-size: 80%; margin-left: 10px"
+                (click)="changeMarkClick(student.id)"
+              >
+                Change
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <h5 class="card-title">Meetings</h5>
+      <div class="card-text">
+        <p
+          *ngIf="
+            !(group$ | async).meetings || (group$ | async).meetings.length == 0
+          "
+        >
+          No meetings added!
+        </p>
+        <table
+          *ngIf="
+            (group$ | async).meetings && (group$ | async).meetings.length > 0
+          "
+          style="width: 100%; border-collapse: separate; border-spacing: 0 1em"
+        >
+          <tr>
+            <th>Date</th>
+            <th>Participants</th>
+          </tr>
+          <tr *ngFor="let meeting of (group$ | async).meetings">
+            <td>{{ meeting.date | date: "medium" }}</td>
+            <td>
+              {{ meeting.presenceList.length }}
+            </td>
+            <td style="text-align: right">
+              <button
+                *ngIf="(hasLecturerRole$ | async) || (hasAdminRole$ | async)"
+                mat-raised-button
+                style="font-size: 80%"
+                (click)="openPresenceDialog(meeting.id)"
+              >
+                Presence
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <h5 class="card-title">Files</h5>
+      <div class="card-text">
+        <p
+          *ngIf="
+            !(group$ | async).filePaths ||
+            (group$ | async).filePaths.length == 0
+          "
+        >
+          No files added!
+        </p>
+        <table
+          *ngIf="
+            (group$ | async).filePaths && (group$ | async).filePaths.length > 0
+          "
+          style="width: 100%"
+        >
+          <tr *ngFor="let filepath of (group$ | async).filePaths">
+            <td>{{ filepath }}</td>
+            <td style="text-align: right">
+              <button
+                mat-raised-button
+                style="font-size: 80%"
+                (click)="downloadFile(filepath)"
+              >
+                Download
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <hr />
+      <div style="display: flex; gap: 0.6rem; font-size: 80%">
+        <button
+          [disabled]="
+            isFull ||
+            !(
+              (group$ | async).groupState == openState ||
+              (group$ | async).groupState == regState
+            )
+          "
+          *ngIf="(hasLecturerRole$ | async) || (hasAdminRole$ | async)"
+          class="btn btn-primary size80"
+          (click)="openAddStudentsDialog()"
+        >
+          Add students
+        </button>
+        <!-- <a class="btn btn-primary">Delete</a> -->
+        <button
+          [disabled]="
+            isFull ||
+            !(
+              (group$ | async).groupState == openState ||
+              (group$ | async).groupState == regState
+            )
+          "
+          class="btn btn-primary size80"
+          (click)="signUpClicked()"
+          *ngIf="hasStudentRole$ | async"
+        >
+          Sign me up
+        </button>
+        <button class="btn btn-primary size80" (click)="openUploadFileDialog()">
+          Add file
+        </button>
+        <button
+          *ngIf="(hasLecturerRole$ | async) || (hasAdminRole$ | async)"
+          class="btn btn-primary size80"
+          [disabled]="!((group$ | async).groupState == openState || isFull)"
+          (click)="openCreateMeetingDialog()"
+        >
+          Create meeting
+        </button>
+        <button
+          *ngIf="(hasLecturerRole$ | async) || (hasAdminRole$ | async)"
+          class="btn btn-primary size80"
+          (click)="openChangeGroupStateDialog()"
+        >
+          Change group state
+        </button>
+        <button
+          [disabled]="(group$ | async).groupState != closeState"
+          *ngIf="(hasLecturerRole$ | async) || (hasAdminRole$ | async)"
+          class="btn btn-primary size80"
+          (click)="generatePdf()"
+        >
+          Generate PDF
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="card" style="width: 20rem" (click)="showTopicDetails()">
+  <div class="card-body">
+    <h5 class="card-title">{{ topic.topicName }}</h5>
+    <p class="card-text">
+      {{ topic.description }}
+    </p>
+    <div class="button--container">
+      <button (click)="showTopicDetails()" matTooltip="Details">
+        <mat-icon matTooltip="Details" class="material-icons-outlined icon"
+          >info</mat-icon
+        >
+      </button>
+      <button
+        *ngIf="!(hasStudentRole$ | async)"
+        (click)="editTopic()"
+        matTooltip="Edit"
+      >
+        <mat-icon class="material-icons-outlined icon">edit</mat-icon>
+      </button>
+      <button
+        *ngIf="!(hasStudentRole$ | async)"
+        (click)="deleteTopic()"
+        matTooltip="Delete"
+      >
+        <mat-icon class="material-icons-outlined icon">delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="container" style="position: relative; min-height: 100vh">
+  <h1>Add lecturer</h1>
+
+  <div
+    style="
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      display: flex;
+      height: fit-content;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+    "
+    *ngIf="isUserInfoCreated"
+    (click)="goBackToUserInfo()"
+  >
+    <mat-icon>arrow_back</mat-icon>
+    <p style="height: fit-content; margin: 0">
+      <strong> Go back</strong>
+    </p>
+  </div>
+
+  <div class="col-8">
+    <app-user-form
+      [userInput]="user"
+      (user)="onUserInfo($event)"
+      *ngIf="!isUserInfoCreated"
+    ></app-user-form>
+    <app-new-lecturer-form
+      (lecturerCreated)="onLecturerInfo($event)"
+      *ngIf="isUserInfoCreated"
+    ></app-new-lecturer-form>
+  </div>
+  <mat-progress-bar
+    style="position: absolute; width: 100%; bottom: 0; right: 0"
+    mode="determinate"
+    [value]="formProgress"
+  ></mat-progress-bar>
+</div>

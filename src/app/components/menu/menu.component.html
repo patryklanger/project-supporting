@@ -1,0 +1,346 @@
+<div class="mobile--header" style="z-index: 100">
+  <button #menuButton class="menu-button" (click)="toggleMenu()">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+  </button>
+</div>
+<div
+  #menuContainer
+  class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark menu-main-container"
+  style="width: 280px; height: 100vh; position: fixed"
+>
+  <a
+    href="/"
+    class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
+    style="gap: 8px"
+  >
+    <mat-icon>workspaces</mat-icon>
+    <span class="fs-4">Project management</span>
+  </a>
+  <hr />
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li class="nav-item">
+      <a
+        href="#"
+        class="d-flex nav-link btn-toggle align-items-center text-white"
+        [class.active]="isActive('home')"
+        style="gap: 5px"
+        data-bs-toggle="collapse"
+        aria-current="page"
+        data-bs-target="#home-collapse"
+        aria-expanded="true"
+      >
+        <mat-icon
+          aria-hidden="false"
+          fontSet="material-icons-outlined"
+          aria-label="Home"
+          >home_outline</mat-icon
+        >
+        Home
+      </a>
+      <div class="collapse" id="home-collapse">
+        <ul
+          class="btn-toggle-nav list-unstyled fw-normal pb-1 small"
+          style="padding-left: 45px; margin-top: 5px"
+        >
+          <li>
+            <a
+              [routerLink]="['/home']"
+              class="link-dark text-120-percent rounded text-white text-decoration-none"
+              >Go home</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a
+        href="#"
+        class="d-flex nav-link btn-toggle align-items-center text-white"
+        [class.active]="isActive('topic')"
+        style="gap: 5px"
+        data-bs-toggle="collapse"
+        aria-current="page"
+        data-bs-target="#topic-collapse"
+        aria-expanded="true"
+        *ngIf="
+          (hasAdminRole$ | async) ||
+          (hasLecturerRole$ | async) ||
+          (hasStudentRole$ | async)
+        "
+      >
+        <mat-icon
+          aria-hidden="false"
+          fontSet="material-icons-outlined"
+          aria-label="Topic"
+          >topic</mat-icon
+        >
+        Topics
+      </a>
+      <div class="collapse" id="topic-collapse">
+        <ul
+          class="btn-toggle-nav list-unstyled fw-normal pb-1 small"
+          style="padding-left: 45px; margin-top: 5px"
+        >
+          <li>
+            <a
+              *ngIf="hasLecturerRole$ | async"
+              [routerLink]="['/topic/add']"
+              class="link-dark text-120-percent rounded text-white text-decoration-none"
+              >Create</a
+            >
+          </li>
+          <hr class="menu--hr" *ngIf="hasLecturerRole$ | async" />
+          <li>
+            <a
+              [routerLink]="['/topic/all']"
+              class="link-dark text-120-percent rounded text-white text-decoration-none"
+              >Show all</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a
+        href="#"
+        class="d-flex nav-link btn-toggle align-items-center text-white"
+        [class.active]="isActive('lecturer')"
+        style="gap: 5px"
+        data-bs-toggle="collapse"
+        aria-current="page"
+        data-bs-target="#lecturer-collapse"
+        aria-expanded="true"
+        *ngIf="
+          (hasAdminRole$ | async) ||
+          (hasLecturerRole$ | async) ||
+          (hasStudentRole$ | async)
+        "
+      >
+        <mat-icon
+          aria-hidden="false"
+          fontSet="material-icons-outlined"
+          aria-label="Topic"
+          >school</mat-icon
+        >
+        Lecturer
+      </a>
+      <div class="collapse" id="lecturer-collapse">
+        <ul
+          class="btn-toggle-nav list-unstyled fw-normal pb-1 small"
+          style="padding-left: 45px; margin-top: 5px"
+        >
+          <li>
+            <a
+              *ngIf="hasAdminRole$ | async"
+              [routerLink]="['/lecturer/add']"
+              class="link-dark text-120-percent rounded text-white text-decoration-none"
+              >Create</a
+            >
+          </li>
+          <hr class="menu--hr" *ngIf="hasAdminRole$ | async" />
+          <li>
+            <a
+              [routerLink]="['/lecturer/all']"
+              class="link-dark text-120-percent rounded text-white text-decoration-none"
+              >All</a
+            >
+          </li>
+          <!-- <hr class="menu--hr" /> -->
+        </ul>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <a
+        href="#"
+        class="d-flex nav-link btn-toggle align-items-center text-white"
+        [class.active]="isActive('groups')"
+        style="gap: 5px"
+        data-bs-toggle="collapse"
+        aria-current="page"
+        data-bs-target="#groups-collapse"
+        aria-expanded="true"
+        *ngIf="
+          (hasStudentRole$ | async) ||
+          (hasAdminRole$ | async) ||
+          (hasLecturerRole$ | async)
+        "
+      >
+        <mat-icon
+          aria-hidden="false"
+          fontSet="material-icons-outlined"
+          aria-label="Groups"
+          >group</mat-icon
+        >
+        Groups
+      </a>
+      <div class="collapse" id="groups-collapse">
+        <ul
+          class="btn-toggle-nav list-unstyled fw-normal pb-1 small"
+          style="padding-left: 45px; margin-top: 5px"
+        >
+          <li>
+            <a
+              *ngIf="(hasAdminRole$ | async) || (hasLecturerRole$ | async)"
+              [routerLink]="['/groups/add']"
+              class="link-dark text-120-percent rounded text-white text-decoration-none"
+              >Create</a
+            >
+          </li>
+          <hr
+            class="menu--hr"
+            *ngIf="(hasAdminRole$ | async) || (hasLecturerRole$ | async)"
+          />
+          <li>
+            <a
+              [routerLink]="['/groups/all']"
+              class="link-dark text-120-percent rounded text-white text-decoration-none"
+              >All</a
+            >
+          </li>
+          <!-- <hr class="menu--hr" /> -->
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a
+        href="#"
+        class="d-flex nav-link btn-toggle align-items-center text-white"
+        [class.active]="isActive('student')"
+        style="gap: 5px"
+        data-bs-toggle="collapse"
+        aria-current="page"
+        data-bs-target="#student-collapse"
+        aria-expanded="true"
+        *ngIf="(hasLecturerRole$ | async) || (hasAdminRole$ | async)"
+      >
+        <mat-icon
+          aria-hidden="false"
+          fontSet="material-icons-outlined"
+          aria-label="Student"
+          >school</mat-icon
+        >
+        Student
+      </a>
+      <div class="collapse" id="student-collapse">
+        <ul
+          class="btn-toggle-nav list-unstyled fw-normal pb-1 small"
+          style="padding-left: 45px; margin-top: 5px"
+        >
+          <li>
+            <a
+              [routerLink]="['/student/add']"
+              class="link-dark text-120-percent rounded text-white text-decoration-none"
+              >Add</a
+            >
+          </li>
+          <hr class="menu--hr" />
+          <li>
+            <a
+              [routerLink]="['/student/all']"
+              class="link-dark text-120-percent rounded text-white text-decoration-none"
+              >All</a
+            >
+          </li>
+          <!-- <hr class="menu--hr" /> -->
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a
+        href="#"
+        class="d-flex nav-link btn-toggle align-items-center text-white"
+        [class.active]="isActive('admin')"
+        style="gap: 5px"
+        data-bs-toggle="collapse"
+        aria-current="page"
+        data-bs-target="#admin-collapse"
+        aria-expanded="true"
+        *ngIf="hasAdminRole$ | async"
+      >
+        <mat-icon
+          aria-hidden="false"
+          fontSet="material-icons-outlined"
+          aria-label="Topic"
+          >admin_panel_settings</mat-icon
+        >
+        Admin actions
+      </a>
+      <div class="collapse" id="admin-collapse">
+        <ul
+          class="btn-toggle-nav list-unstyled fw-normal pb-1 small"
+          style="padding-left: 45px; margin-top: 5px"
+        >
+          <li>
+            <a
+              [routerLink]="['/admin/user/all']"
+              class="link-dark text-120-percent rounded text-white text-decoration-none"
+              >All users</a
+            >
+          </li>
+
+          <hr class="menu--hr" />
+
+          <li>
+            <a
+              [routerLink]="['/admin/admin/all']"
+              class="link-dark text-120-percent rounded text-white text-decoration-none"
+              >All admins</a
+            >
+          </li>
+          <hr class="menu--hr" />
+          <li>
+            <a
+              [routerLink]="['/admin/admin/add']"
+              class="link-dark text-120-percent rounded text-white text-decoration-none"
+              >Add admin</a
+            >
+          </li>
+
+          <!-- <hr class="menu--hr" /> -->
+        </ul>
+      </div>
+    </li>
+  </ul>
+  <hr />
+  <app-semester-select
+    *ngIf="isLoggedIn$ | async"
+    style="margin-bottom: 10px; width: 100%"
+    (onSemesterSelected)="semesterSelected($event)"
+  ></app-semester-select>
+
+  <div class="dropdown" *ngIf="isLoggedIn$ | async">
+    <a
+      href="#"
+      class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+      id="dropdownUser1"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      <img
+        src="https://github.com/mdo.png"
+        alt=""
+        width="32"
+        height="32"
+        class="rounded-circle me-2"
+      />
+      <strong>{{ username$ | async }}</strong>
+    </a>
+    <ul
+      class="dropdown-menu dropdown-menu-dark text-small shadow"
+      aria-labelledby="dropdownUser1"
+    >
+      <li><a class="dropdown-item" routerLink="/profile">Profile</a></li>
+      <li><hr class="dropdown-divider" /></li>
+      <li><a class="dropdown-item" (click)="logout()" href="#">Sign out</a></li>
+    </ul>
+  </div>
+  <div class="d-flex" style="gap: 10px" *ngIf="isLoggedOut$ | async">
+    <button type="button" class="btn btn-secondary flex-fill" (click)="login()">
+      Login
+    </button>
+    <button type="button" class="btn btn-secondary flex-fill">Register</button>
+  </div>
+</div>

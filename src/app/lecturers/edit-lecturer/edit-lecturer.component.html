@@ -1,0 +1,68 @@
+<form [formGroup]="userForm" (ngSubmit)="onFormSubmit()">
+  <p>
+    <mat-form-field appearance="outline" style="width: 100%">
+      <mat-label>First name</mat-label>
+      <input
+        matInput
+        type="firstName"
+        id="firstName"
+        name="firstName"
+        formControlName="firstName"
+        placeholder=""
+      />
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="outline" style="width: 100%">
+      <mat-label>Last name</mat-label>
+      <input
+        matInput
+        type="lastName"
+        id="lastName"
+        name="lastName"
+        formControlName="lastName"
+        placeholder=""
+      />
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="outline" style="width: 100%">
+      <mat-label>Subject</mat-label>
+      <input
+        matInput
+        type="subject"
+        id="subject"
+        name="subject"
+        formControlName="subject"
+        placeholder=""
+      />
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="outline" style="width: 100%">
+      <mat-label>Academic Degree</mat-label>
+      <input
+        matInput
+        type="academicDegree"
+        id="academicDegree"
+        name="academicDegree"
+        formControlName="academicDegree"
+        placeholder=""
+      />
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="outline" style="width: 100%">
+      <mat-label>Cathedral</mat-label>
+      <input
+        matInput
+        type="catherdral"
+        id="catherdral"
+        name="catherdral"
+        formControlName="catherdral"
+        placeholder=""
+      />
+    </mat-form-field>
+  </p>
+  <button mat-raised-button type="submit">Next</button>
+</form>

@@ -1,0 +1,50 @@
+<div
+  style="width: 100%; display: flex; justify-content: right; cursor: pointer"
+>
+  <mat-icon class="material-icons-outlined icon" (click)="onCloseClick()"
+    >close</mat-icon
+  >
+</div>
+<div style="display: flex; align-items: center; gap: 15px">
+  <mat-form-field appearance="outline" style="width: 80%">
+    <mat-label>Student</mat-label>
+    <mat-select [formControl]="studentCtrl" required>
+      <mat-option
+        ><ngx-mat-select-search
+          placeholderLabel="Start typing student's name"
+          noEntriesFoundLabel="No matching student found"
+          [formControl]="studentFilterCtrl"
+        ></ngx-mat-select-search
+      ></mat-option>
+      <mat-option *ngFor="let student of students$ | async" [value]="student.id"
+        >{{ student.firstName }} {{ student.lastName }}, album no:
+        {{ student.id }}</mat-option
+      >
+      <!-- <mat-option *ngIf="topicSelected" [value]="selectedTopicId">{{
+      selectedTopicName
+    }}</mat-option> -->
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button (click)="addStudentToList()">Add</button>
+</div>
+<div>
+  <p *ngIf="addedStudentsIds.length == 0">No students added!</p>
+  <p *ngIf="addedStudentsIds.length > 0">Added students:</p>
+</div>
+<div>
+  <ul>
+    <li *ngFor="let student of addedStudents$ | async">
+      {{ student.firstName }} {{ student.lastName }}, album no:
+      {{ student.id }}
+      <mat-icon
+        class="material-icons-outlined icon"
+        style="font-size: 110%"
+        (click)="onStudentDeleted(student.id)"
+        >delete</mat-icon
+      >
+    </li>
+  </ul>
+</div>
+<button mat-raised-button style="margin: 0 auto" (click)="onDoneClick()">
+  Done
+</button>

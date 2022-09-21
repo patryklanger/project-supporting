@@ -1,0 +1,17 @@
+<div class="card" style="width: 20rem">
+  <div class="card-body">
+    <h5 class="card-title">{{ student.firstName }} {{ student.lastName }}</h5>
+    <p class="card-text">
+      Birthdate: {{ student.birthDate }} <br />
+      Album no.: {{ student.id }}
+    </p>
+    <div class="button--container">
+      <button (click)="editStudent()" matTooltip="Edit">
+        <mat-icon class="material-icons-outlined icon">edit</mat-icon>
+      </button>
+      <button (click)="deleteStudent()" matTooltip="Delete">
+        <mat-icon class="material-icons-outlined icon">delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<div
+  style="width: 100%; display: flex; justify-content: right; cursor: pointer"
+>
+  <mat-icon class="material-icons-outlined icon" (click)="onCloseClick()"
+    >close</mat-icon
+  >
+</div>
+<form (submit)="onSubmit()">
+  <mat-form-field appearance="outline" style="width: 100%">
+    <mat-label>Meeting date</mat-label>
+    <input
+      [min]="now"
+      matInput
+      [matDatepicker]="picker"
+      [formControl]="dateCtrl"
+      required
+    />
+    <mat-hint>DD.MM.YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field appearance="outline" style="width: 100%">
+    <mat-label>Meeting time</mat-label>
+    <input
+      matInput
+      type="time"
+      min="00:00"
+      max="23:59"
+      [formControl]="timeCtrl"
+      required
+    />
+  </mat-form-field>
+  <button mat-raised-button>Done</button>
+</form>
